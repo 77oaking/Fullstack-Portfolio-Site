@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@portfolio/shared-types": ["libs/shared-types/src/index.ts"],
+      "@portfolio/shared-types/*": ["libs/shared-types/src/*"],
+      "@portfolio/theme-engine": ["libs/theme-engine/src/index.ts"],
+      "@portfolio/theme-engine/*": ["libs/theme-engine/src/*"],
+      "@portfolio/themes/*": ["libs/themes/*"]
+    }
+  }
+}

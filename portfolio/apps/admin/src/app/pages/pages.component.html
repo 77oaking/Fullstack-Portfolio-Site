@@ -1,0 +1,37 @@
+<div class="shell" [class.sidebar-collapsed]="!sidebarOpen">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">P</span>
+      <span class="brand-text">Portfolio Admin</span>
+    </div>
+
+    <nav class="nav">
+      <a
+        *ngFor="let item of nav"
+        [routerLink]="item.link"
+        routerLinkActive="active"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="who">{{ adminName }}</span>
+      <button mat-icon-button (click)="logout()" matTooltip="Sign out">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </header>
+    <div class="page">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

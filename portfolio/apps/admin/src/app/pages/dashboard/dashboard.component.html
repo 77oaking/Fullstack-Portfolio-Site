@@ -1,0 +1,30 @@
+<h1>Dashboard</h1>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-label">Projects</div>
+    <div class="stat-value">{{ projectsCount }}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Themes</div>
+    <div class="stat-value">{{ themesCount }}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Active theme</div>
+    <div class="stat-value">{{ activeThemeName }}</div>
+  </div>
+</div>
+
+<section class="quick">
+  <h2>Quick actions</h2>
+  <div class="actions">
+    <a mat-stroked-button routerLink="/projects/add">
+      <mat-icon>add</mat-icon>
+      New project
+    </a>
+    <a mat-stroked-button routerLink="/themes">
+      <mat-icon>palette</mat-icon>
+      Manage themes
+    </a>
+  </div>
+</section>

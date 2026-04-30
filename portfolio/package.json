@@ -1,0 +1,30 @@
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Themeable full-stack portfolio (Angular UI + NestJS API + MongoDB + Admin)",
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,ui,admin -c blue,green,magenta \"npm run dev -w apps/api\" \"npm run dev -w apps/ui\" \"npm run dev -w apps/admin\"",
+    "dev:api": "npm run dev -w apps/api",
+    "dev:ui": "npm run dev -w apps/ui",
+    "dev:admin": "npm run dev -w apps/admin",
+    "build": "npm run build -w apps/api && npm run build -w apps/ui && npm run build -w apps/admin",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,js,json,md,scss,html}\"",
+    "seed": "npm run seed -w apps/api",
+    "validate-themes": "node scripts/validate-themes.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.18"
+  }
+}

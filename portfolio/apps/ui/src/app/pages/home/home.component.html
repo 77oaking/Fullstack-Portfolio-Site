@@ -1,0 +1,28 @@
+<section class="hero" *ngIf="settings$ | async as s">
+  <div class="container">
+    <h1>{{ s.ownerHeadline || 'Hi, I make things on the web.' }}</h1>
+    <p class="lede">{{ s.ownerBio || 'Edit me from the admin app to introduce yourself.' }}</p>
+    <a routerLink="/projects" mat-flat-button color="primary">See my work</a>
+  </div>
+</section>
+
+<section class="featured" *ngIf="featured$ | async as projects">
+  <div class="container">
+    <h2>Featured projects</h2>
+    <div class="grid" *ngIf="projects.length; else empty">
+      <a class="card" *ngFor="let p of projects" [routerLink]="['/projects', p.slug]">
+        <img *ngIf="p.coverImage" [src]="p.coverImage" [alt]="p.title" />
+        <div class="card-body">
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.summary }}</p>
+          <div class="tags">
+            <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <ng-template #empty>
+      <p class="muted">No projects yet — add some from the admin app.</p>
+    </ng-template>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" routerLink="/">
+      <ng-container *ngIf="settings$ | async as s; else placeholder">{{ s.siteTitle }}</ng-container>
+      <ng-template #placeholder>Portfolio</ng-template>
+    </a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+    </nav>
+
+    <button mat-button [matMenuTriggerFor]="themeMenu" class="theme-btn" *ngIf="themes.length">
+      <mat-icon>palette</mat-icon>
+      Theme
+    </button>
+    <mat-menu #themeMenu="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let t of themes"
+        (click)="switchTo(t.id)"
+        [class.active]="currentThemeId === t.id"
+      >
+        {{ t.name }}
+      </button>
+    </mat-menu>
+  </div>
+</header>

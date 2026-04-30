@@ -1,0 +1,17 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.stat {
+  background: var(--admin-bg-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.stat-label { color: var(--admin-fg-muted); font-size: var(--font-size-sm); margin-bottom: var(--space-2); }
+.stat-value { font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); }
+
+.actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }

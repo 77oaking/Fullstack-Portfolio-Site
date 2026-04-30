@@ -1,0 +1,7 @@
+<footer class="footer">
+  <div class="container footer-inner">
+    <span *ngIf="settings$ | async as s">© {{ year }} {{ s.ownerName || s.siteTitle }}</span>
+    <span class="dot">·</span>
+    <a routerLink="/projects">Projects</a>
+  </div>
+</footer>

@@ -1,0 +1,19 @@
+<section class="container">
+  <h1>Projects</h1>
+
+  <div class="grid" *ngIf="(projects$ | async) as projects; else loading">
+    <a class="card" *ngFor="let p of projects" [routerLink]="['/projects', p.slug]">
+      <img *ngIf="p.coverImage" [src]="p.coverImage" [alt]="p.title" />
+      <div class="card-body">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.summary }}</p>
+        <div class="tags">
+          <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+        </div>
+      </div>
+    </a>
+    <p *ngIf="!projects.length" class="muted">No projects yet.</p>
+  </div>
+
+  <ng-template #loading><p class="muted">Loading…</p></ng-template>
+</section>

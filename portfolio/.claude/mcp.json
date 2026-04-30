@@ -1,0 +1,5 @@
+{
+  "$comment": "MCP servers used by Claude Code in this repo. Add the GitHub server once you create a GitHub PAT. Add a MongoDB server if you want Claude to inspect data live.",
+  "mcpServers": {
+  }
+}

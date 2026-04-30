@@ -1,0 +1,77 @@
+.head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5); }
+.active-tag { font-size: var(--font-size-sm); color: var(--admin-fg-muted); }
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-6);
+}
+
+.list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  background: var(--admin-bg-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+.list li.is-active { border-color: var(--admin-success); }
+
+.theme {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.dot { width: 28px; height: 28px; border-radius: var(--radius-full); flex-shrink: 0; }
+.name { font-weight: var(--font-weight-semibold); }
+.desc { font-size: var(--font-size-xs); color: var(--admin-fg-muted); }
+
+/* Preview pane uses the previewed theme's CSS vars (set by applyTheme on this element) */
+.preview {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  font-family: var(--font-body);
+}
+.preview-hero h2 { font-family: var(--font-display); }
+.preview-hero p { color: var(--color-fg-muted); }
+
+.preview-card {
+  margin-top: var(--space-6);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-md);
+}
+.preview-card h3 { font-family: var(--font-display); }
+.preview-card p { color: var(--color-fg-muted); margin-bottom: var(--space-4); }
+
+.preview-tags { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.preview-tag {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-fg-muted);
+}
+
+.preview-btn {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  border: 0;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+}

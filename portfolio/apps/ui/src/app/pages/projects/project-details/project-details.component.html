@@ -1,0 +1,33 @@
+<article class="container" *ngIf="project$ | async as p; else loading">
+  <ng-container *ngIf="p; else notFound">
+    <header class="hero">
+      <h1>{{ p.title }}</h1>
+      <p class="lede">{{ p.summary }}</p>
+      <div class="tags">
+        <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+      </div>
+    </header>
+
+    <img *ngIf="p.coverImage" [src]="p.coverImage" [alt]="p.title" class="cover" />
+
+    <div class="prose" [innerHTML]="p.description"></div>
+
+    <ul class="links" *ngIf="p.links?.length">
+      <li *ngFor="let l of p.links">
+        <a [href]="l.url" target="_blank" rel="noopener">{{ l.label }}</a>
+      </li>
+    </ul>
+
+    <a routerLink="/projects">← Back to projects</a>
+  </ng-container>
+
+  <ng-template #notFound>
+    <h1>Not found</h1>
+    <p>That project doesn't exist (or isn't published yet).</p>
+    <a routerLink="/projects">← Back to projects</a>
+  </ng-template>
+</article>
+
+<ng-template #loading>
+  <p class="container muted">Loading…</p>
+</ng-template>

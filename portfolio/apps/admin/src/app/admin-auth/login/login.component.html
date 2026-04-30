@@ -1,0 +1,21 @@
+<div class="login-shell">
+  <form class="login-card" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Admin Sign-in</h1>
+    <p class="muted">Manage your portfolio.</p>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" autocomplete="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" autocomplete="current-password" />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || loading" class="full">
+      <ng-container *ngIf="!loading">Sign in</ng-container>
+      <ng-container *ngIf="loading">Signing in…</ng-container>
+    </button>
+  </form>
+</div>
