@@ -1,28 +1,102 @@
-<section class="hero" *ngIf="settings$ | async as s">
-  <div class="container">
-    <h1>{{ s.ownerHeadline || 'Hi, I make things on the web.' }}</h1>
-    <p class="lede">{{ s.ownerBio || 'Edit me from the admin app to introduce yourself.' }}</p>
-    <a routerLink="/projects" mat-flat-button color="primary">See my work</a>
-  </div>
-</section>
-
-<section class="featured" *ngIf="featured$ | async as projects">
-  <div class="container">
-    <h2>Featured projects</h2>
-    <div class="grid" *ngIf="projects.length; else empty">
-      <a class="card" *ngFor="let p of projects" [routerLink]="['/projects', p.slug]">
-        <img *ngIf="p.coverImage" [src]="p.coverImage" [alt]="p.title" />
-        <div class="card-body">
-          <h3>{{ p.title }}</h3>
-          <p>{{ p.summary }}</p>
-          <div class="tags">
-            <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+<ng-container *ngIf="settings$ | async as s">
+  <ng-container *ngIf="cv$ | async as cv">
+    <section id="hero" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <p class="eyebrow">Full Stack Developer</p>
+          <h1>{{ fullName(cv, s) }}</h1>
+          <p class="headline">{{ cv?.personal?.headline || s.ownerHeadline || 'Full-stack engineer' }}</p>
+          <p class="lede">{{ cv?.summary?.text || s.ownerBio || 'Edit me from the admin app to introduce yourself.' }}</p>
+          <div class="hero-actions">
+            <a href="#projects" mat-flat-button color="primary">See my work</a>
+            <a *ngIf="cv?.personal?.email" [href]="'mailto:' + cv?.personal?.email" mat-stroked-button>Contact me</a>
           </div>
         </div>
-      </a>
+
+        <aside class="hero-card">
+          <img
+            *ngIf="cv?.personal?.photo; else fallbackPhoto"
+            [src]="cv?.personal?.photo || ''"
+            [alt]="(cv?.personal?.firstName || s.ownerName || 'Owner') + ' photo'"
+          />
+          <ng-template #fallbackPhoto>
+            <div class="photo-fallback">
+              {{ (cv?.personal?.firstName || s.ownerName || 'P').charAt(0) }}
+            </div>
+          </ng-template>
+          <h3>{{ fullName(cv, s) }}</h3>
+          <p class="muted-line">{{ cv?.personal?.city || '' }} {{ cv?.personal?.country ? ', ' + cv?.personal?.country : '' }}</p>
+          <p class="muted-line">{{ cv?.personal?.email || s.contactEmail }}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container section-card">
+        <h2>About</h2>
+        <p class="about-text">{{ cv?.summary?.text || s.ownerBio || 'No summary available yet.' }}</p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="chips" *ngIf="cv?.skills?.length; else noSkills">
+          <span class="chip" *ngFor="let sk of cv?.skills">{{ sk.name }}</span>
+        </div>
+        <ng-template #noSkills><p class="muted">No skills added yet.</p></ng-template>
+      </div>
+    </section>
+
+    <section id="experience" class="section alt">
+      <div class="container">
+        <h2>Experience</h2>
+        <div class="timeline" *ngIf="cv?.experience?.length; else noExperience">
+          <article class="timeline-item" *ngFor="let ex of cv?.experience">
+            <h3>{{ ex.role }} · {{ ex.company }}</h3>
+            <p class="muted-line">{{ ex.location }}</p>
+            <p class="muted-line">{{ ex.startDate | date:'MMM yyyy' }} - {{ ex.endDate ? (ex.endDate | date:'MMM yyyy') : 'Present' }}</p>
+            <p>{{ ex.summary }}</p>
+          </article>
+        </div>
+        <ng-template #noExperience><p class="muted">No experience entries yet.</p></ng-template>
+      </div>
+    </section>
+  </ng-container>
+
+  <section id="projects" class="featured" *ngIf="featured$ | async as projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="grid" *ngIf="projects.length; else empty">
+        <a class="card" *ngFor="let p of projects" [routerLink]="['/projects', p.slug]">
+          <img *ngIf="p.coverImage" [src]="p.coverImage" [alt]="p.title" />
+          <div class="card-body">
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.summary }}</p>
+            <div class="tags">
+              <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <ng-template #empty>
+        <p class="muted">No featured projects yet — set a project as Published + Featured in admin.</p>
+      </ng-template>
     </div>
-    <ng-template #empty>
-      <p class="muted">No projects yet — add some from the admin app.</p>
-    </ng-template>
-  </div>
-</section>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="container section-card">
+      <h2>Contact</h2>
+      <p class="muted">Let’s build something together.</p>
+      <div class="contact-grid" *ngIf="cv$ | async as cv">
+        <a *ngIf="cv?.personal?.email || s.contactEmail" [href]="'mailto:' + (cv?.personal?.email || s.contactEmail)">
+          {{ cv?.personal?.email || s.contactEmail }}
+        </a>
+        <span *ngIf="cv?.personal?.phone">{{ cv?.personal?.phone }}</span>
+        <a *ngIf="cv?.personal?.linkedin" [href]="cv?.personal?.linkedin" target="_blank" rel="noopener">LinkedIn</a>
+        <a *ngIf="cv?.personal?.github" [href]="cv?.personal?.github" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</ng-container>

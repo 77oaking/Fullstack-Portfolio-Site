@@ -9,5 +9,6 @@ import { SettingsService } from './settings.service';
   imports: [AuthModule, MongooseModule.forFeature([{ name: 'Settings', schema: SettingsSchema }])],
   controllers: [SettingsController],
   providers: [SettingsService],
+  exports: [SettingsService, MongooseModule],
 })
 export class SettingsModule {}

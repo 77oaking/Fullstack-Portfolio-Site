@@ -1,0 +1,39 @@
+@use 'cv-page';
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.photo-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--admin-fg);
+}
+
+.photo-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.photo-file-input {
+  display: none;
+}
+
+.photo-help {
+  margin: 0;
+  color: var(--admin-fg-muted);
+  font-size: var(--font-size-xs);
+}
+
+.photo-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--shadow-sm);
+}

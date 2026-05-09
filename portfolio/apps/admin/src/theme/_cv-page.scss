@@ -1,0 +1,121 @@
+// Shared styles for all CV Builder pages.
+// Used via @use 'cv-page'; (resolved by angular.json includePaths).
+
+.cv-page {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.cv-page.cv-page-wide {
+  max-width: none;
+}
+
+.cv-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.cv-page-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--admin-fg);
+  margin: 0;
+}
+
+.cv-page-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--admin-fg-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.cv-loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-12);
+}
+
+.cv-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  mat-card {
+    padding: var(--space-4);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--radius-lg);
+  }
+  mat-card-header { margin-bottom: var(--space-4); }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-4);
+
+  mat-form-field { width: 100%; }
+
+  .col-span-2 { grid-column: span 2; }
+}
+
+// List page toolbar
+.cv-list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+// Empty state
+.cv-empty {
+  text-align: center;
+  padding: var(--space-12) 0;
+  color: var(--admin-fg-muted);
+  font-size: var(--font-size-sm);
+  background: var(--admin-bg-elevated);
+  border: 1px dashed var(--admin-border);
+  border-radius: var(--radius-lg);
+}
+
+// Back link
+.cv-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--admin-fg-muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+
+  &:hover { color: var(--admin-fg); }
+}
+
+.cv-table-wrap {
+  background: var(--admin-bg-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: auto;
+}
+
+table.mat-mdc-table {
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+
+    .col-span-2 {
+      grid-column: span 1;
+    }
+  }
+}

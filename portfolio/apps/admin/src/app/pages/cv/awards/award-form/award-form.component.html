@@ -1,0 +1,53 @@
+<div class="cv-page">
+  <button class="cv-back" (click)="back()"><mat-icon>arrow_back</mat-icon> Back to Awards</button>
+
+  <div class="cv-page-header">
+    <div>
+      <h1 class="cv-page-title">{{ editId ? 'Edit Award' : 'Add Award' }}</h1>
+    </div>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || loading">
+      <mat-icon>save</mat-icon>
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="cv-loading"><mat-spinner diameter="36"></mat-spinner></div>
+
+  <form *ngIf="!loading" [formGroup]="form" class="cv-form">
+    <mat-card>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Award Title</mat-label>
+          <input matInput formControlName="title" placeholder="e.g. Best Developer of the Year" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Issuing Organization</mat-label>
+          <input matInput formControlName="issuer" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" type="date" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput formControlName="order" type="number" />
+        </mat-form-field>
+
+        <div class="toggle-cell">
+          <mat-slide-toggle formControlName="visible">Visible on CV</mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

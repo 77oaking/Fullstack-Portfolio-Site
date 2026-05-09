@@ -6,7 +6,6 @@ import { environment } from '../../../environments/environment';
 import {
   applyTheme,
   forgetStoredTheme,
-  loadStoredTheme,
   rememberTheme,
 } from '@portfolio/theme-engine';
 import type { ResponsePayload, Theme } from '@portfolio/shared-types';
@@ -37,12 +36,12 @@ export class ThemeService {
 
   /** Called from APP_INITIALIZER. Resolve = ready to render. */
   async bootstrap(): Promise<void> {
-    const storedId = loadStoredTheme();
     try {
-      const theme = storedId
-        ? await this.fetchById(storedId).catch(() => this.fetchActive())
-        : await this.fetchActive();
+      const theme = await this.fetchActive();
       this.set(theme);
+      // Admin-selected active theme is the source of truth on bootstrap.
+      // Clear stale local overrides that can make UI/admin look out of sync.
+      forgetStoredTheme();
     } catch (err) {
       console.warn('[ThemeService] Could not load theme; using fallback CSS vars.', err);
     }

@@ -1,19 +1,31 @@
-<div class="shell" [class.sidebar-collapsed]="!sidebarOpen">
-  <aside class="sidebar">
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="sidebar"
+    [mode]="sidenavMode"
+    [opened]="sidebarOpen"
+    [disableClose]="!isMobile"
+  >
     <div class="brand">
       <span class="logo">P</span>
-      <span class="brand-text">Portfolio Admin</span>
+      <div>
+        <span class="brand-text">Portfolio Admin</span>
+        <small class="brand-subtitle">Content Workspace</small>
+      </div>
     </div>
 
     <nav class="nav">
-      <a
-        *ngFor="let item of nav"
-        [routerLink]="item.link"
-        routerLinkActive="active"
-      >
-        <mat-icon>{{ item.icon }}</mat-icon>
-        <span>{{ item.label }}</span>
-      </a>
+      <ng-container *ngFor="let section of navSections">
+        <span class="nav-section-label">{{ section.label }}</span>
+        <a
+          *ngFor="let item of section.items"
+          [routerLink]="item.link"
+          routerLinkActive="active"
+          (click)="onNavigate()"
+        >
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      </ng-container>
     </nav>
 
     <div class="sidebar-footer">
@@ -22,16 +34,24 @@
         <mat-icon>logout</mat-icon>
       </button>
     </div>
-  </aside>
+  </mat-sidenav>
 
-  <main class="main">
+  <mat-sidenav-content>
     <header class="topbar">
       <button mat-icon-button (click)="toggleSidebar()">
         <mat-icon>menu</mat-icon>
       </button>
+      <div class="topbar-title">
+        <h1>Admin Control Panel</h1>
+      </div>
+      <button mat-stroked-button color="primary" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Sign out
+      </button>
     </header>
-    <div class="page">
+
+    <main class="page">
       <router-outlet></router-outlet>
-    </div>
-  </main>
-</div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

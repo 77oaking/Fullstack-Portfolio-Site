@@ -1,35 +1,49 @@
 import * as mongoose from 'mongoose';
 
-export interface Experience extends mongoose.Document {
-  _id: mongoose.Types.ObjectId;
+export type EmploymentType =
+  | 'full-time'
+  | 'part-time'
+  | 'contract'
+  | 'freelance'
+  | 'internship';
+
+export interface ExperienceDoc extends mongoose.Document {
   role: string;
   company: string;
-  companyLogo: string | null;
+  companyUrl?: string;
+  companyLogo?: string;
   location: string;
-  startDate: Date;
-  endDate: Date | null;
-  summary: string;
-  bullets: string[];
+  type: EmploymentType;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
+  description: string;
+  achievements: string[];
   techStack: string[];
   order: number;
-  visible: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export const ExperienceSchema = new mongoose.Schema(
   {
-    role: { type: String, required: true },
-    company: { type: String, required: true },
-    companyLogo: { type: String, default: null },
+    role: { type: String, required: true, trim: true },
+    company: { type: String, required: true, trim: true },
+    companyUrl: { type: String, trim: true },
+    companyLogo: { type: String, trim: true },
     location: { type: String, default: '' },
-    startDate: { type: Date, required: true, index: true },
-    endDate: { type: Date, default: null },
-    summary: { type: String, default: '' },
-    bullets: { type: [String], default: [] },
+    type: {
+      type: String,
+      enum: ['full-time', 'part-time', 'contract', 'freelance', 'internship'],
+      default: 'full-time',
+    },
+    startDate: { type: String, required: true },
+    endDate: { type: String },
+    current: { type: Boolean, default: false },
+    description: { type: String, default: '' },
+    achievements: { type: [String], default: [] },
     techStack: { type: [String], default: [] },
-    order: { type: Number, default: 0 },
-    visible: { type: Boolean, default: true },
+    order: { type: Number, default: 0, index: true },
   },
-  { timestamps: true, versionKey: false },
+  { timestamps: true, versionKey: false, collection: 'experiences' },
 );

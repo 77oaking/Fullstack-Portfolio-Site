@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiBaseLink: 'http://localhost:4001',
+  apiBaseUrl: 'http://localhost:4001/api',
   publicSiteUrl: 'http://localhost:4200',
 };

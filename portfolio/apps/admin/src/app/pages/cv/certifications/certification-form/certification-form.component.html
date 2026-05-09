@@ -1,0 +1,64 @@
+<div class="cv-page">
+  <button class="cv-back" (click)="back()"><mat-icon>arrow_back</mat-icon> Back to Certifications</button>
+
+  <div class="cv-page-header">
+    <div>
+      <h1 class="cv-page-title">{{ editId ? 'Edit Certification' : 'Add Certification' }}</h1>
+    </div>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || loading">
+      <mat-icon>save</mat-icon>
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="cv-loading"><mat-spinner diameter="36"></mat-spinner></div>
+
+  <form *ngIf="!loading" [formGroup]="form" class="cv-form">
+    <mat-card>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Certification Name</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. AWS Solutions Architect" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Issuing Organization</mat-label>
+          <input matInput formControlName="issuer" placeholder="e.g. Amazon Web Services" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Issue Date</mat-label>
+          <input matInput formControlName="issueDate" type="date" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Expiry Date</mat-label>
+          <input matInput formControlName="expiryDate" type="date" />
+          <mat-hint>Leave blank if it does not expire</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Credential ID</mat-label>
+          <input matInput formControlName="credentialId" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Credential URL</mat-label>
+          <input matInput formControlName="credentialUrl" placeholder="https://…" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput formControlName="order" type="number" />
+        </mat-form-field>
+
+        <div class="toggle-cell">
+          <mat-slide-toggle formControlName="visible">Visible on CV</mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

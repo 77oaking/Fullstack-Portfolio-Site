@@ -1,0 +1,41 @@
+@use 'cv-page';
+
+.import-card {
+  margin-bottom: var(--space-4);
+}
+
+.import-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.full {
+  width: 100%;
+}
+
+.mode-field {
+  max-width: 460px;
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.file-name {
+  color: var(--admin-fg-muted);
+  font-size: var(--font-size-sm);
+}
+
+pre {
+  white-space: pre-wrap;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  max-height: 380px;
+  overflow: auto;
+}

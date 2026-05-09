@@ -1,0 +1,59 @@
+<div class="cv-page">
+  <button class="cv-back" (click)="back()"><mat-icon>arrow_back</mat-icon> Back to Skills</button>
+
+  <div class="cv-page-header">
+    <div>
+      <h1 class="cv-page-title">{{ editId ? 'Edit Skill' : 'Add Skill' }}</h1>
+    </div>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || loading">
+      <mat-icon>save</mat-icon>
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="cv-loading"><mat-spinner diameter="36"></mat-spinner></div>
+
+  <form *ngIf="!loading" [formGroup]="form" class="cv-form">
+    <mat-card>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Skill Name</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. Angular" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="category" placeholder="e.g. Frontend, Backend, DevOps" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Proficiency Level</mat-label>
+          <mat-select formControlName="level">
+            <mat-option *ngFor="let l of levels" [value]="l.value">{{ l.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Years of Experience</mat-label>
+          <input matInput formControlName="yearsOfExperience" type="number" min="0" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Icon (URL or icon name)</mat-label>
+          <input matInput formControlName="icon" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput formControlName="order" type="number" />
+        </mat-form-field>
+
+        <div class="col-span-2">
+          <mat-slide-toggle formControlName="visible">Visible on CV</mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+@use 'cv-page';
+
+.actions-cell { text-align: right; white-space: nowrap; }
+
+.proficiency-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background: rgba(255,255,255,0.06);
+}

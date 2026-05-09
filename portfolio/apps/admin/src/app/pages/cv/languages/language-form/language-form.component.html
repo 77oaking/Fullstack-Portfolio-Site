@@ -1,0 +1,40 @@
+<div class="cv-page" style="max-width:480px">
+  <button class="cv-back" (click)="back()"><mat-icon>arrow_back</mat-icon> Back to Languages</button>
+
+  <div class="cv-page-header">
+    <div>
+      <h1 class="cv-page-title">{{ editId ? 'Edit Language' : 'Add Language' }}</h1>
+    </div>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || loading">
+      <mat-icon>save</mat-icon>
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="cv-loading"><mat-spinner diameter="36"></mat-spinner></div>
+
+  <form *ngIf="!loading" [formGroup]="form" class="cv-form">
+    <mat-card>
+      <mat-card-content class="card-grid" style="grid-template-columns: 1fr">
+        <mat-form-field appearance="outline">
+          <mat-label>Language</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. English, French…" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Proficiency</mat-label>
+          <mat-select formControlName="proficiency">
+            <mat-option *ngFor="let p of proficiencies" [value]="p.value">{{ p.label }}</mat-option>
+          </mat-select>
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput formControlName="order" type="number" />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

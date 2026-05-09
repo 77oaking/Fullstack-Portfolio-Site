@@ -13,6 +13,7 @@ import type { Theme } from '@portfolio/shared-types';
 export class ThemesListComponent implements OnInit {
   themes: Theme[] = [];
   active: Theme | null = null;
+  selectedTheme: Theme | null = null;
   loading = false;
 
   @ViewChild('previewSection', { static: true }) previewEl!: ElementRef<HTMLElement>;
@@ -31,6 +32,10 @@ export class ThemesListComponent implements OnInit {
         this.loading = false;
         if (this.themes.length) this.preview(this.themes[0]);
       },
+      error: () => {
+        this.loading = false;
+        this.ui.error('Failed to load themes');
+      },
     });
     this.service.active().subscribe({
       next: (r) => (this.active = r.data ?? null),
@@ -38,6 +43,7 @@ export class ThemesListComponent implements OnInit {
   }
 
   preview(theme: Theme): void {
+    this.selectedTheme = theme;
     if (this.previewEl?.nativeElement) {
       applyTheme(theme, this.previewEl.nativeElement);
     }

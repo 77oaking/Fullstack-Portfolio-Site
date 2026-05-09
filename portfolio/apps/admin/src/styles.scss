@@ -1,21 +1,130 @@
-/* Admin global styles. The admin uses a fixed dark sidebar shell;
-   the theme-engine drives only the *preview pane* on the Themes page. */
+@use '@angular/material' as mat;
+@include mat.core();
 
-@import "css-vars";
-@import "base";
+$admin-primary: mat.define-palette(mat.$teal-palette, 600);
+$admin-accent: mat.define-palette(mat.$green-palette, 500);
+$admin-warn: mat.define-palette(mat.$red-palette);
+
+$admin-theme: mat.define-light-theme((
+  color: (primary: $admin-primary, accent: $admin-accent, warn: $admin-warn),
+  typography: mat.define-typography-config(
+    $font-family: "'Plus Jakarta Sans', 'Inter', 'Segoe UI', sans-serif",
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($admin-theme);
+
+:root {
+  --bg: #f6f9fb;
+  --bg-alt: #eef3f7;
+  --surface: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --text-1: #0f172a;
+  --text-2: #475569;
+  --text-3: #94a3b8;
+  --accent-1: #0ea5a4;
+  --accent-2: #22c55e;
+  --accent-soft: #e6faf7;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --radius: 12px;
+  --radius-lg: 16px;
+}
 
 html, body { height: 100%; margin: 0; }
 
 body {
-  font-family: var(--font-body);
-  font-size: var(--font-size-base);
-  color: var(--admin-fg);
-  background: var(--admin-bg);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+a { color: var(--accent-1); text-decoration: none; }
+a:hover { color: #0f766e; }
+
+.page {
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-a:hover { color: var(--color-primary); }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: var(--text-2);
+  margin: .25rem 0 0;
+  font-size: .9375rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.card + .card { margin-top: 1rem; }
+
+.row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.row > * { flex: 1 1 220px; min-width: 0; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+.field label {
+  font-size: .8125rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.list-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.list-table th, .list-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: .9375rem;
+}
+.list-table th { background: var(--bg-alt); font-weight: 600; color: var(--text-2); }
+.list-table tr:last-child td { border-bottom: none; }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-2);
+}
+
+.btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.danger-card {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+}
+.danger-card h2 { color: #b91c1c; }
+
+.mat-mdc-form-field { width: 100%; }

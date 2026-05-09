@@ -1,0 +1,84 @@
+<div class="cv-page">
+  <button class="cv-back" (click)="back()"><mat-icon>arrow_back</mat-icon> Back to Education</button>
+
+  <div class="cv-page-header">
+    <div>
+      <h1 class="cv-page-title">{{ editId ? 'Edit Education' : 'Add Education' }}</h1>
+      <p class="cv-page-subtitle">Academic qualification or training</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || loading">
+      <mat-icon>save</mat-icon>
+      {{ saving ? 'Saving…' : 'Save' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="cv-loading"><mat-spinner diameter="36"></mat-spinner></div>
+
+  <form *ngIf="!loading" [formGroup]="form" class="cv-form">
+    <mat-card>
+      <mat-card-header><mat-card-title>Institution</mat-card-title></mat-card-header>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Institution / School</mat-label>
+          <input matInput formControlName="institution" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Degree / Qualification</mat-label>
+          <input matInput formControlName="degree" placeholder="e.g. Bachelor of Science" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Field of Study</mat-label>
+          <input matInput formControlName="fieldOfStudy" placeholder="e.g. Computer Science" />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header><mat-card-title>Duration & Grade</mat-card-title></mat-card-header>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input matInput formControlName="startDate" type="date" />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="!form.get('current')?.value">
+          <mat-label>End Date</mat-label>
+          <input matInput formControlName="endDate" type="date" />
+        </mat-form-field>
+
+        <div class="col-span-2">
+          <mat-slide-toggle formControlName="current">Currently studying here</mat-slide-toggle>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Grade / GPA</mat-label>
+          <input matInput formControlName="grade" placeholder="e.g. 3.8 / 4.0 or First Class" />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header><mat-card-title>Description & Settings</mat-card-title></mat-card-header>
+      <mat-card-content class="card-grid">
+        <mat-form-field appearance="outline" class="col-span-2">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3" placeholder="Thesis, notable courses, activities…"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput formControlName="order" type="number" />
+        </mat-form-field>
+
+        <div class="toggle-cell">
+          <mat-slide-toggle formControlName="visible">Visible on CV</mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

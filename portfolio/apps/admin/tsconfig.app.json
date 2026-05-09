@@ -5,6 +5,39 @@
     "types": []
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts", "src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts"]
+  "include": [
+    "src/main.ts",
+    "src/environments/**/*.ts",
+    "src/app/app.config.ts",
+    "src/app/app.routes.ts",
+    "src/app/app.component.ts",
+    "src/app/core/**/*.ts",
+    "src/app/services/auth.service.ts",
+    "src/app/services/api-resource.service.ts",
+    "src/app/services/portfolio-resources.ts",
+    "src/app/guards/**/*.ts",
+    "src/app/interceptors/**/*.ts",
+    "src/app/shared/string-list-input.component.ts",
+    "src/app/pages/login/**/*.ts",
+    "src/app/pages/dashboard/dashboard.component.ts",
+    "src/app/pages/profile/**/*.ts",
+    "src/app/pages/hero/**/*.ts",
+    "src/app/pages/about/**/*.ts",
+    "src/app/pages/settings/**/*.ts",
+    "src/app/pages/experience/**/*.ts",
+    "src/app/pages/education/**/*.ts",
+    "src/app/pages/skills/**/*.ts",
+    "src/app/pages/projects/projects-list.page.ts",
+    "src/app/pages/projects/projects-form.page.ts",
+    "src/app/pages/services/**/*.ts",
+    "src/app/pages/testimonials/**/*.ts",
+    "src/app/pages/certifications/**/*.ts",
+    "src/app/pages/achievements/**/*.ts",
+    "src/app/pages/messages/**/*.ts",
+    "src/app/pages/danger-zone/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
 }

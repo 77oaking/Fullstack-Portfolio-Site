@@ -27,12 +27,16 @@ export class ThemesController {
   }
 
   @Get()
+  @UseGuards(AdminJwtAuthGuard)
+  @ApiSecurity('admin')
   @ApiOperation({ summary: 'List all visible themes' })
   list() {
     return this.service.listVisible();
   }
 
   @Get('by-id/:themeId')
+  @UseGuards(AdminJwtAuthGuard)
+  @ApiSecurity('admin')
   @ApiOperation({ summary: 'Get a theme by its kebab-case themeId' })
   byId(@Param('themeId') themeId: string) {
     return this.service.getById(themeId);

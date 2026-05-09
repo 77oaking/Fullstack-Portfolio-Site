@@ -12,5 +12,6 @@ import { ExperienceService } from './experience.service';
   ],
   controllers: [ExperienceController],
   providers: [ExperienceService],
+  exports: [ExperienceService, MongooseModule],
 })
 export class ExperienceModule {}

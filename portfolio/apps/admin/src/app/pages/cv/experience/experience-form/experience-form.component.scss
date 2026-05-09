@@ -1,0 +1,20 @@
+@use 'cv-page';
+
+.bullets-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--admin-fg-muted);
+  margin: 0 0 var(--space-2);
+}
+
+.bullet-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.toggle-cell {
+  display: flex;
+  align-items: center;
+}

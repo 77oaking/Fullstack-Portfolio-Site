@@ -1,51 +1,57 @@
 import * as mongoose from 'mongoose';
 
-export interface Project extends mongoose.Document {
-  _id: mongoose.Types.ObjectId;
+export type ProjectStatus = 'completed' | 'in-progress' | 'archived';
+
+export interface ProjectDoc extends mongoose.Document {
   title: string;
   slug: string;
   summary: string;
   description: string;
   coverImage: string;
   gallery: string[];
-  tags: string[];
   techStack: string[];
-  links: { label: string; url: string }[];
+  category?: string;
+  role?: string;
+  team?: string;
+  liveUrl?: string;
+  repoUrl?: string;
+  caseStudyUrl?: string;
+  startDate?: string;
+  endDate?: string;
   featured: boolean;
+  status: ProjectStatus;
   order: number;
-  status: 'draft' | 'published' | 'archived';
-  publishedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
-
-const ProjectLinkSchema = new mongoose.Schema(
-  { label: { type: String, required: true }, url: { type: String, required: true } },
-  { _id: false },
-);
 
 export const ProjectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true, trim: true, lowercase: true },
-    summary: { type: String, required: true, maxlength: 280 },
-    description: { type: String, required: true },
-    coverImage: { type: String, required: true },
+    summary: { type: String, default: '', maxlength: 320 },
+    description: { type: String, default: '' },
+    coverImage: { type: String, default: '' },
     gallery: { type: [String], default: [] },
-    tags: { type: [String], default: [], index: true },
     techStack: { type: [String], default: [] },
-    links: { type: [ProjectLinkSchema], default: [] },
+    category: { type: String, trim: true },
+    role: { type: String, trim: true },
+    team: { type: String, trim: true },
+    liveUrl: { type: String, trim: true },
+    repoUrl: { type: String, trim: true },
+    caseStudyUrl: { type: String, trim: true },
+    startDate: { type: String },
+    endDate: { type: String },
     featured: { type: Boolean, default: false, index: true },
-    order: { type: Number, default: 0, index: true },
     status: {
       type: String,
-      enum: ['draft', 'published', 'archived'],
-      default: 'draft',
+      enum: ['completed', 'in-progress', 'archived'],
+      default: 'completed',
       index: true,
     },
-    publishedAt: { type: Date, default: null },
+    order: { type: Number, default: 0, index: true },
   },
-  { timestamps: true, versionKey: false },
+  { timestamps: true, versionKey: false, collection: 'projects' },
 );
 
-ProjectSchema.index({ status: 1, featured: 1, order: 1 });
+ProjectSchema.index({ status: 1, featured: -1, order: 1 });

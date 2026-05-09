@@ -21,6 +21,10 @@ const routes: Routes = [
         path: 'themes',
         loadChildren: () => import('./themes/themes.module').then((m) => m.ThemesAdminModule),
       },
+      {
+        path: 'cv',
+        loadChildren: () => import('./cv/cv.module').then((m) => m.CvModule),
+      },
     ],
   },
 ];

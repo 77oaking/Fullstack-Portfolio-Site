@@ -3,7 +3,7 @@ import { ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AdminJwtAuthGuard } from '../../guards/admin-jwt-auth.guard';
 import { MongoIdValidationPipe } from '../../pipes/mongo-id-validation.pipe';
-import { CreateSkillDto, UpdateSkillDto } from '../../dto/skill.dto';
+import { CreateSkillCategoryDto, UpdateSkillCategoryDto } from '../../dto/skill-category.dto';
 import { SkillsService } from './skills.service';
 
 @ApiTags('skills')
@@ -12,29 +12,28 @@ export class SkillsController {
   constructor(private readonly service: SkillsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List visible skills' })
+  @ApiOperation({ summary: 'List skill categories with their items' })
   list() {
-    return this.service.findAllPublic();
+    return this.service.findAll({}, { order: 1, name: 1 });
   }
 
-  @Get('grouped')
-  @ApiOperation({ summary: 'List visible skills grouped by category' })
-  grouped() {
-    return this.service.grouped();
+  @Get(':id')
+  findOne(@Param('id', MongoIdValidationPipe) id: string) {
+    return this.service.findOne(id);
   }
 
   @Post()
   @UseGuards(AdminJwtAuthGuard)
   @ApiSecurity('admin')
-  create(@Body() dto: CreateSkillDto) {
-    return this.service.create(dto);
+  create(@Body() dto: CreateSkillCategoryDto) {
+    return this.service.create(dto as unknown as Record<string, unknown>);
   }
 
   @Put(':id')
   @UseGuards(AdminJwtAuthGuard)
   @ApiSecurity('admin')
-  update(@Param('id', MongoIdValidationPipe) id: string, @Body() dto: UpdateSkillDto) {
-    return this.service.update(id, dto);
+  update(@Param('id', MongoIdValidationPipe) id: string, @Body() dto: UpdateSkillCategoryDto) {
+    return this.service.update(id, dto as unknown as Record<string, unknown>);
   }
 
   @Delete(':id')

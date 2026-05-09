@@ -1,38 +1,59 @@
 <div class="head">
-  <h1>Themes</h1>
+  <div>
+    <h1>Themes</h1>
+    <p class="subtitle">Preview and activate portfolio themes for the public site.</p>
+  </div>
   <span class="active-tag" *ngIf="active">Active: <strong>{{ active.name }}</strong></span>
 </div>
 
 <div class="layout">
-  <ul class="list" *ngIf="!loading">
-    <li *ngFor="let t of themes" [class.is-active]="isActive(t)">
-      <button class="theme" (click)="preview(t)">
-        <div class="dot" [style.background]="t.tokens.color.primary"></div>
-        <div>
-          <div class="name">{{ t.name }}</div>
-          <div class="desc">{{ t.description }}</div>
-        </div>
-      </button>
-      <button mat-flat-button color="primary" (click)="activate(t)" [disabled]="isActive(t)">
-        {{ isActive(t) ? 'Active' : 'Activate' }}
-      </button>
-    </li>
-  </ul>
+  <section class="list-wrap">
+    <div *ngIf="loading" class="loading-wrap">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+    <ul class="list" *ngIf="!loading">
+      <li *ngFor="let t of themes" [class.is-active]="isActive(t)" [class.is-selected]="selectedTheme?.id === t.id">
+        <button class="theme" (click)="preview(t)">
+          <div class="dot" [style.background]="t.tokens.color.primary"></div>
+          <div>
+            <div class="name">{{ t.name }}</div>
+            <div class="desc">{{ t.description }}</div>
+            <small class="meta">{{ t.mode | titlecase }} mode</small>
+          </div>
+        </button>
+        <button mat-flat-button color="primary" (click)="activate(t)" [disabled]="isActive(t)">
+          {{ isActive(t) ? 'Active' : 'Activate' }}
+        </button>
+      </li>
+    </ul>
+  </section>
 
   <section class="preview" #previewSection>
     <header class="preview-hero">
       <h2>Preview</h2>
-      <p>Pick a theme on the left to preview its tokens here. Activate it to make it the public default.</p>
-    </header>
-    <div class="preview-card">
-      <h3>Project card</h3>
-      <p>This card is styled with the previewed theme's CSS custom properties.</p>
-      <div class="preview-tags">
-        <span class="preview-tag">angular</span>
-        <span class="preview-tag">nestjs</span>
-        <span class="preview-tag">mongodb</span>
+      <p>Pick a theme to preview tokens and core surfaces. Activate to make it the default public theme.</p>
+      <div class="preview-meta" *ngIf="selectedTheme">
+        <span class="preview-pill">{{ selectedTheme.mode | titlecase }}</span>
+        <span class="preview-pill">Primary {{ selectedTheme.tokens.color.primary }}</span>
+        <span class="preview-pill">Accent {{ selectedTheme.tokens.color.accent }}</span>
       </div>
-      <button class="preview-btn">Primary action</button>
+    </header>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <h3>Project card</h3>
+        <p>This card is styled with the previewed theme CSS variables.</p>
+        <div class="preview-tags">
+          <span class="preview-tag">angular</span>
+          <span class="preview-tag">nestjs</span>
+          <span class="preview-tag">mongodb</span>
+        </div>
+        <button class="preview-btn">Primary action</button>
+      </div>
+      <div class="preview-card">
+        <h3>Typography</h3>
+        <p class="preview-display">Display headline</p>
+        <p class="preview-muted">Body copy uses the current theme body stack and muted text token.</p>
+      </div>
     </div>
   </section>
 </div>

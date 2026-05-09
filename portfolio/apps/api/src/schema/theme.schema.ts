@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
-import type { ThemeTokens, ComponentOverrides } from '@portfolio/shared-types';
+
+export type ThemeTokens = Record<string, unknown>;
+export type ComponentOverrides = Record<string, unknown>;
 
 export interface Theme extends mongoose.Document {
   _id: mongoose.Types.ObjectId;

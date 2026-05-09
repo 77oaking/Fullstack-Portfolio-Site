@@ -18,6 +18,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const MATERIAL = [
   MatButtonModule,
@@ -39,6 +41,8 @@ const MATERIAL = [
   MatTabsModule,
   MatTooltipModule,
   MatDividerModule,
+  MatSidenavModule,
+  MatListModule,
 ];
 
 @NgModule({ imports: [...MATERIAL], exports: [...MATERIAL] })
